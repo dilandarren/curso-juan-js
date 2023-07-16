@@ -22,15 +22,15 @@ var categoria = 'computadoras',
     marca = "marca famosa",
     calificacion = 5;
 //las variables no pueden iniciar con números
-var 99dias;
-var dias99;
+// var 99dias;
+// var dias99;
 
-var 01_;
-var _01;
-var _usuario;
-var __usuario;
+// var 01_;
+// var _01;
+// var _usuario;
+// var __usuario;
 
 
-var nombreProductoCategoriaPrecio;
-var nombre_producto_categoria_precio;
-var Nombre Producto
+// var nombreProductoCategoriaPrecio;
+// var nombre_producto_categoria_precio;
+// var Nombre Producto
