@@ -34,4 +34,4 @@ const producto3 = {
 
 carrito.unshift(producto3);
 
-console.table(carrito)
+console.table(carrito);
