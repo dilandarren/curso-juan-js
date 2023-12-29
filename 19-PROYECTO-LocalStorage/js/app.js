@@ -49,7 +49,18 @@ let tweets = [];
 
 EventListeners();
 function EventListeners() {
+    //Cuando el usuario agrega un nuevo tweet
     formulario.addEventListener('submit', agregarTweet);
+
+    //Cuando el documento este listo
+    document.addEventListener('DOMContentLoaded', () =>  {
+        tweets = JSON.parse( localStorage.getItem('tweets')) || [];
+        console.log(tweets);
+
+
+
+        crearHTML();
+    })
 }
 
 
@@ -102,7 +113,19 @@ function agregarTweet(e) {
         return;
     }
 
-    console.log(tweet)
+    const tweetObj = {
+        id: Date.now(),
+        tweet
+    }
+
+    //Añadir al arreglo de tweets
+    tweets = [...tweets, tweetObj];
+
+    //una vez agregado vamos a craer el HTML
+    crearHTML();
+
+    //reiniciar el formulario
+    formulario.reset();
 }
 
 
@@ -121,3 +144,64 @@ function mostrarError(error) {
         mensajeError.remove();
     }, 3000); 
 }
+
+//Muestra un listado de tweets
+function crearHTML() {
+    limpiarHTML();
+
+    if(tweets.length > 0) {
+        tweets.forEach( tweet => {
+
+
+            //Agregar un moton de eliminar
+            const btnEliminar = document.createElement('a')
+            btnEliminar.classList.add('borrar-tweet');
+            btnEliminar.innerText = 'X';
+
+
+            //Añadir la funcion de eliminar
+            btnEliminar.onclick = () => {
+                borrarTweet(tweet.id);
+            }
+
+            //crear el HTML
+
+            const li = document.createElement('li');
+
+            //añadir el texto
+            li.innerText = tweet.tweet;
+
+            //Asingar el boton
+            li.appendChild(btnEliminar);
+
+            //insertarlo en el HTML
+            listaTweets.appendChild(li);
+        })
+    }
+
+    sincronizaStorage();
+}
+
+
+function sincronizaStorage () {
+    localStorage.setItem('tweets', JSON.stringify(tweets) )
+}
+
+
+
+//Eliminar un tweet
+function borrarTweet(id) {
+    tweets = tweets.filter( tweet => tweet.id  !== id);
+
+    crearHTML();
+}
+
+
+
+//limpiar el HTML
+function limpiarHTML() {
+    while( listaTweets.firstChild ) {
+        listaTweets.removeChild(listaTweets.firstChild);
+    }
+}
+
