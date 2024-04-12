@@ -29,13 +29,23 @@ Cliente.prototype.retirarSaldo = function(retira) {
 
 
 
+
+
 function Persona(nombre, saldo, telefono){
+    Cliente.call(this, nombre, saldo)
+    this.telefono = telefono;
 
 
 }
 
-
+Persona.prototype = Object.create(Cliente.prototype );
+Persona.prototype.costructor = Cliente;
 
 //Instanciarlo
 const pepe = new Persona('Pepe', 5000, 10920192);
 console.log(pepe);
+console.log(pepe.nombreClienteSaldo());
+
+Persona.prototype.mostrarTelefono = function(){
+    return `El telefono es: ${this.telefono}`
+}
